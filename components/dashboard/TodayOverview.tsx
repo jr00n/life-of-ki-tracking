@@ -3,21 +3,20 @@
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Calendar, Clock, Heart, Target, Activity } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
 interface TodayEntry {
   id: string
-  mood: number
-  energy_level: number
-  sleep_hours: number
-  sleep_quality: number
-  exercise_minutes: number
-  meditation_minutes: number
-  daily_intention: string
-  gratitude: string
-  water_glasses: number
+  mood: number | null
+  energy_level: number | null
+  sleep_hours: number | null
+  sleep_quality: number | null
+  exercise_minutes: number | null
+  meditation_minutes: number | null
+  daily_intention: string | null
+  gratitude: string | null
+  water_glasses: number | null
   created_at: string
 }
 
@@ -134,7 +133,7 @@ export function TodayOverview() {
                   <div
                     key={level}
                     className={`w-2 h-2 rounded-full ${
-                      level <= todayEntry.mood
+                      todayEntry.mood && level <= todayEntry.mood
                         ? 'bg-primary'
                         : 'bg-muted'
                     }`}
@@ -155,7 +154,7 @@ export function TodayOverview() {
                   <div
                     key={level}
                     className={`w-2 h-2 rounded-full ${
-                      level <= todayEntry.energy_level
+                      todayEntry.energy_level && level <= todayEntry.energy_level
                         ? 'bg-orange-600'
                         : 'bg-muted'
                     }`}
@@ -197,7 +196,7 @@ export function TodayOverview() {
         {todayEntry.gratitude && (
           <div className="bg-primary/5 rounded-lg p-4">
             <p className="text-sm font-medium text-muted-foreground mb-1">Dankbaarheid</p>
-            <p className="text-sm leading-relaxed italic">"{todayEntry.gratitude}"</p>
+            <p className="text-sm leading-relaxed italic">&quot;{todayEntry.gratitude}&quot;</p>
           </div>
         )}
       </CardContent>

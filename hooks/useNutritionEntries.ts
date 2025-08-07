@@ -173,7 +173,7 @@ export function useNutritionEntries(dailyEntryId: string | null) {
               user_id: user.id,
               name,
               description: foodDescription,
-              category,
+              category: category as 'ontbijt' | 'lunch' | 'diner' | 'snack' | 'drank' | 'anders' | null,
               default_time: timeConsumed,
               usage_count: usageCount
             })

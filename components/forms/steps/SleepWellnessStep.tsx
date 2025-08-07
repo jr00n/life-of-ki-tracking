@@ -43,10 +43,10 @@ export function SleepWellnessStep({ form }: SleepWellnessStepProps) {
     const [bedHour, bedMin] = bedtime.split(':').map(Number)
     const [wakeHour, wakeMin] = wakeTime.split(':').map(Number)
     
-    let bedDate = new Date()
+    const bedDate = new Date()
     bedDate.setHours(bedHour, bedMin, 0, 0)
     
-    let wakeDate = new Date()
+    const wakeDate = new Date()
     wakeDate.setHours(wakeHour, wakeMin, 0, 0)
     
     // If wake time is before bed time, it's the next day

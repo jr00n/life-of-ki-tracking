@@ -48,7 +48,7 @@ export function SettingsPage() {
     setIsSaving(true)
     
     let hasSuccess = true
-    let messages = []
+    const messages: string[] = []
     
     // Update week start day if changed
     if (selectedWeekStartDay !== weekStartDay) {
@@ -228,7 +228,7 @@ export function SettingsPage() {
                 </SelectContent>
               </Select>
               <p className="text-sm text-muted-foreground">
-                "Systeem" volgt je apparaat instelling voor licht/donker modus.
+                &quot;Systeem&quot; volgt je apparaat instelling voor licht/donker modus.
               </p>
             </div>
 

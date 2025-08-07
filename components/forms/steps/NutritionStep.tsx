@@ -47,7 +47,9 @@ export function NutritionStep({ form, dailyEntryId }: NutritionStepProps) {
       
       {/* Quick Add Section - Only show if we have a dailyEntryId */}
       {dailyEntryId && favorites.length > 0 && (
-        <QuickAddFoods onQuickAdd={addEntry} />
+        <QuickAddFoods onQuickAdd={async (time, description) => {
+          await addEntry(time, description)
+        }} />
       )}
       
       {/* Nutrition Timeline Section */}
@@ -84,9 +86,13 @@ export function NutritionStep({ form, dailyEntryId }: NutritionStepProps) {
                 <NutritionEntryItem
                   key={entry.id}
                   entry={entry}
-                  onUpdate={updateEntry}
+                  onUpdate={async (id, time, description) => {
+                    await updateEntry(id, time, description)
+                  }}
                   onDelete={deleteEntry}
-                  onAddToFavorites={createFromEntry}
+                  onAddToFavorites={async (description, time) => {
+                    await createFromEntry(description, time)
+                  }}
                   isFavorite={isFavorite(entry.food_description)}
                 />
               ))}
@@ -99,7 +105,9 @@ export function NutritionStep({ form, dailyEntryId }: NutritionStepProps) {
           )}
           
           {/* Add new entry */}
-          <AddNutritionEntry onAdd={addEntry} />
+          <AddNutritionEntry onAdd={async (time, description) => {
+            await addEntry(time, description)
+          }} />
           
           <div className="pt-4 text-xs text-muted-foreground">
             💡 <strong>Tips:</strong> Je kunt per maaltijd meerdere items toevoegen door ze op nieuwe regels te zetten. 

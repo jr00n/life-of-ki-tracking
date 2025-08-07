@@ -14,12 +14,12 @@ import { createClient } from '@/lib/supabase/client'
 interface RecentEntry {
   id: string
   entry_date: string
-  mood: number
-  energy_level: number
-  daily_intention: string
-  sleep_hours: number
-  exercise_minutes: number
-  meditation_minutes: number
+  mood: number | null
+  energy_level: number | null
+  daily_intention: string | null
+  sleep_hours: number | null
+  exercise_minutes: number | null
+  meditation_minutes: number | null
   created_at: string
 }
 

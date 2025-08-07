@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { DailyEntryForm } from '@/components/forms/DailyEntryForm'
 import { useSearchParams } from 'next/navigation'
 
-export default function DailyEntryPage() {
+function DailyEntryPageContent() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const searchParams = useSearchParams()
@@ -73,3 +73,10 @@ export default function DailyEntryPage() {
   )
 }
 
+export default function DailyEntryPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DailyEntryPageContent />
+    </Suspense>
+  )
+}

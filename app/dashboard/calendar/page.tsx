@@ -12,12 +12,12 @@ import Link from 'next/link'
 interface DailyEntry {
   id: string
   entry_date: string
-  mood: number
-  energy_level: number
-  daily_intention: string
-  sleep_hours: number
-  exercise_minutes: number
-  meditation_minutes: number
+  mood: number | null
+  energy_level: number | null
+  daily_intention: string | null
+  sleep_hours: number | null
+  exercise_minutes: number | null
+  meditation_minutes: number | null
   created_at: string
 }
 
@@ -186,6 +186,7 @@ export default function CalendarPage() {
                       }
                       
                       const day = dayData.day
+                      if (!day) return null
                       const entry = getEntryForDate(day)
                       const dateString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
                       const isSelected = selectedDate === dateString
@@ -208,12 +209,14 @@ export default function CalendarPage() {
                           {entry && (
                             <div className="flex gap-1 mt-1">
                               <div className={`w-2 h-2 rounded-full ${
-                                entry.mood >= 4 ? 'bg-green-500' : 
-                                entry.mood >= 3 ? 'bg-yellow-500' : 'bg-red-500'
+                                entry.mood && entry.mood >= 4 ? 'bg-green-500' : 
+                                entry.mood && entry.mood >= 3 ? 'bg-yellow-500' : 
+                                entry.mood ? 'bg-red-500' : 'bg-gray-300'
                               }`}></div>
                               <div className={`w-2 h-2 rounded-full ${
-                                entry.energy_level >= 4 ? 'bg-blue-500' : 
-                                entry.energy_level >= 3 ? 'bg-orange-500' : 'bg-gray-500'
+                                entry.energy_level && entry.energy_level >= 4 ? 'bg-blue-500' : 
+                                entry.energy_level && entry.energy_level >= 3 ? 'bg-orange-500' : 
+                                entry.energy_level ? 'bg-gray-500' : 'bg-gray-300'
                               }`}></div>
                             </div>
                           )}
@@ -254,14 +257,14 @@ export default function CalendarPage() {
                       <Heart className="h-4 w-4 text-primary" />
                       <div>
                         <p className="text-sm text-muted-foreground">Stemming</p>
-                        <p className="font-medium">{selectedEntry.mood}/5</p>
+                        <p className="font-medium">{selectedEntry.mood || '-'}/5</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Activity className="h-4 w-4 text-orange-600" />
                       <div>
                         <p className="text-sm text-muted-foreground">Energie</p>
-                        <p className="font-medium">{selectedEntry.energy_level}/5</p>
+                        <p className="font-medium">{selectedEntry.energy_level || '-'}/5</p>
                       </div>
                     </div>
                   </div>
@@ -282,12 +285,12 @@ export default function CalendarPage() {
                         <Clock className="h-3 w-3" />
                         {selectedEntry.sleep_hours}u slaap
                       </Badge>
-                      {selectedEntry.exercise_minutes > 0 && (
+                      {selectedEntry.exercise_minutes && selectedEntry.exercise_minutes > 0 && (
                         <Badge variant="outline">
                           {selectedEntry.exercise_minutes}min sport
                         </Badge>
                       )}
-                      {selectedEntry.meditation_minutes > 0 && (
+                      {selectedEntry.meditation_minutes && selectedEntry.meditation_minutes > 0 && (
                         <Badge variant="outline">
                           {selectedEntry.meditation_minutes}min meditatie
                         </Badge>

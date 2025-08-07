@@ -101,14 +101,14 @@ export default function QuickMealPage() {
       } catch (error) {
         console.error('Error loading/creating entry:', error)
         console.error('Error details:', {
-          message: error.message,
-          stack: error.stack,
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
           user: user?.id,
           today
         })
         toast({
           title: 'Fout',
-          description: `Kon dagelijkse entry niet laden of aanmaken: ${error.message}`,
+          description: `Kon dagelijkse entry niet laden of aanmaken: ${error instanceof Error ? error.message : String(error)}`,
           variant: 'destructive',
         })
       } finally {
@@ -169,7 +169,9 @@ export default function QuickMealPage() {
       
       {/* Quick Add Section */}
       {dailyEntryId && favorites.length > 0 && (
-        <QuickAddFoods onQuickAdd={addEntry} />
+        <QuickAddFoods onQuickAdd={async (time, description) => {
+          await addEntry(time, description)
+        }} />
       )}
       
       {/* Info message if no dailyEntryId and no entries exist */}
@@ -215,9 +217,13 @@ export default function QuickMealPage() {
                 <NutritionEntryItem
                   key={entry.id}
                   entry={entry}
-                  onUpdate={updateEntry}
+                  onUpdate={async (id, time, description) => {
+                    await updateEntry(id, time, description)
+                  }}
                   onDelete={deleteEntry}
-                  onAddToFavorites={createFromEntry}
+                  onAddToFavorites={async (description, time) => {
+                    await createFromEntry(description, time)
+                  }}
                   isFavorite={isFavorite(entry.food_description)}
                 />
               ))}
@@ -230,7 +236,9 @@ export default function QuickMealPage() {
           )}
           
           {/* Add new entry */}
-          <AddNutritionEntry onAdd={addEntry} />
+          <AddNutritionEntry onAdd={async (time, description) => {
+            await addEntry(time, description)
+          }} />
         </CardContent>
       </Card>
       

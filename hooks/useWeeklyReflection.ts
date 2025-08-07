@@ -204,7 +204,7 @@ export function useWeeklyReflection() {
       
       let errorMsg = 'Onbekende fout'
       if (error && typeof error === 'object') {
-        errorMsg = error.message || error.error?.message || error.details || JSON.stringify(error)
+        errorMsg = (error as any).message || (error as any).error?.message || (error as any).details || JSON.stringify(error)
       } else if (typeof error === 'string') {
         errorMsg = error
       }

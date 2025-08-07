@@ -225,7 +225,7 @@ export function useDailyEntry() {
       console.log('ERROR STRING:', String(error))
       console.log('ERROR JSON:', JSON.stringify(error, Object.getOwnPropertyNames(error)))
       
-      const errorMsg = error?.message || error?.error?.message || 'Unknown error'
+      const errorMsg = (error as any)?.message || (error as any)?.error?.message || 'Unknown error'
       console.log('EXTRACTED ERROR MESSAGE:', errorMsg)
       
       toast({

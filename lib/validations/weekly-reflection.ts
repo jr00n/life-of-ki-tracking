@@ -7,17 +7,13 @@ export const weeklyReflectionSchema = z.object({
     .max(2000, 'Persoonlijk inzicht mag maximaal 2000 karakters bevatten'),
   
   // Movement goals
-  movement_goal_achieved: z.boolean({
-    required_error: 'Kies of je bewegingsdoel is behaald',
-  }),
+  movement_goal_achieved: z.boolean(),
   movement_goal_next_week: z.string()
     .min(1, 'Bewegingsdoel voor volgende week is vereist')
     .max(500, 'Bewegingsdoel mag maximaal 500 karakters bevatten'),
   
   // Nutrition goals
-  nutrition_goal_achieved: z.boolean({
-    required_error: 'Kies of je voedingsdoel is behaald',
-  }),
+  nutrition_goal_achieved: z.boolean(),
   nutrition_goal_next_week: z.string()
     .min(1, 'Voedingsdoel voor volgende week is vereist')
     .max(500, 'Voedingsdoel mag maximaal 500 karakters bevatten'),
