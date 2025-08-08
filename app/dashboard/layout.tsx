@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/Header'
 import { MobileNav } from '@/components/layout/MobileNav'
 import { Toaster } from '@/components/ui/toaster'
+import { ThemeInitializer } from '@/components/providers/ThemeInitializer'
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen bg-background">
+      <ThemeInitializer />
       <Header />
       
       <main className="container mx-auto px-4 py-6 pb-20 lg:pb-6">

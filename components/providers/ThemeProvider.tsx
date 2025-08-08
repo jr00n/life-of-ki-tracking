@@ -8,11 +8,11 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider 
       attribute="class" 
-      defaultTheme="system"
+      defaultTheme="light"
       enableSystem={true}
-      storageKey="theme"
+      storageKey="life-of-ki-theme"
       themes={['light', 'dark', 'system']}
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
       {...props}
     >
       {children}

@@ -29,7 +29,7 @@ export const THEME_OPTIONS = [
 ]
 
 const DEFAULT_WEEK_START_DAY = 1 // Monday
-const DEFAULT_THEME = 'system' // Follow system preference
+const DEFAULT_THEME = 'light' // Default to light theme
 
 export function useUserPreferences() {
   const { user } = useAuth()
